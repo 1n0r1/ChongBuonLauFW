@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using DocumentFormat.OpenXml;
+using Microsoft.VisualBasic.FileIO;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
@@ -25,6 +26,7 @@ namespace ChongBuonLauFW
         private BackgroundWorker backgroundWorker2 = new BackgroundWorker();
         private BackgroundWorker backgroundWorker3 = new BackgroundWorker();
         private BackgroundWorker backgroundWorker4 = new BackgroundWorker();
+        private BackgroundWorker backgroundWorker5 = new BackgroundWorker();
 
         private List<AirportData> airports;
         public StartForm()
@@ -36,8 +38,10 @@ namespace ChongBuonLauFW
             dataGridView3.CellDoubleClick += DataGridView3_CellDoubleClick;
             dataGridView4.CellDoubleClick += DataGridView4_CellDoubleClick;
             dataGridView5.CellDoubleClick += DataGridView5_CellDoubleClick;
+            dataGridView6.CellDoubleClick += DataGridView6_CellDoubleClick;
 
             dataGridView2.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(dataGridView2_RowPrePaint);
+            dataGridView6.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(dataGridView6_RowPrePaint);
 
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
@@ -54,6 +58,10 @@ namespace ChongBuonLauFW
             backgroundWorker4.WorkerReportsProgress = true;
             backgroundWorker4.DoWork += BackgroundWorker4_DoWork;
             backgroundWorker4.RunWorkerCompleted += BackgroundWorker4_RunWorkerCompleted;
+
+            backgroundWorker5.WorkerReportsProgress = true;
+            backgroundWorker5.DoWork += BackgroundWorker5_DoWork;
+            backgroundWorker5.RunWorkerCompleted += BackgroundWorker5_RunWorkerCompleted;
 
             var collection = MongoUserCollection.GetAirportsCollection();
             var filter = Builders<AirportData>.Filter.Empty;
@@ -124,6 +132,16 @@ namespace ChongBuonLauFW
             }
         }
 
+        private void DataGridView6_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridView6.Rows.Count)
+            {
+                DataGridViewRow row = dataGridView6.Rows[e.RowIndex];
+                string id = row.Cells["Số giấy tờ"].Value?.ToString();
+                Form2 form = new Form2(id);
+                form.Show();
+            }
+        }
         private void FindFlight()
         {
             button4.Enabled = false;
@@ -189,7 +207,7 @@ namespace ChongBuonLauFW
 
             var filterStageCountry = new BsonDocument
             {
-                { "$addFields", new BsonDocument { { "dummy", "hi" } } } 
+                { "$addFields", new BsonDocument { { "dummy", "hi" } } }
             };
 
             if (!string.IsNullOrEmpty(filterCountry))
@@ -268,7 +286,7 @@ namespace ChongBuonLauFW
                     {
                         "FlightList.FlightNumber", flightNo
                     }
-                             
+
                 });
             }
 
@@ -303,7 +321,7 @@ namespace ChongBuonLauFW
                                                     {"regex", ",\\d+$"}
                                                 }),
                                                 new BsonDocument("$toInt", new BsonDocument
-                                                    { 
+                                                    {
                                                         { "$arrayElemAt", new BsonArray
                                                             {
                                                                 new BsonDocument
@@ -392,7 +410,6 @@ namespace ChongBuonLauFW
                 backgroundWorker2.RunWorkerAsync(pipeline);
             }
         }
-
 
         private void FindFlightKHRR()
         {
@@ -601,8 +618,6 @@ namespace ChongBuonLauFW
                 backgroundWorker4.RunWorkerAsync(pipeline);
             }
         }
-
-
 
         private void FindFlightKH()
         {
@@ -923,7 +938,7 @@ namespace ChongBuonLauFW
 
             var projectStage = new BsonDocument("$project",
                 new BsonDocument
-                    {
+                {
                         { "_id", 0 },
                         { "IdNum", 1 },
                         { "Name", 1 },
@@ -982,7 +997,7 @@ namespace ChongBuonLauFW
                                 }
                             )
                         }
-                    }
+                }
             );
 
             if (checkRoute)
@@ -1148,6 +1163,268 @@ namespace ChongBuonLauFW
             if (!backgroundWorker1.IsBusy)
             {
                 backgroundWorker1.RunWorkerAsync(pipeline);
+            }
+        }
+
+        private void FindFlightFrequency()
+        {
+            button20.Enabled = false;
+            decimal threshold = numericUpDown4.Value;
+
+            DateTime rawDay = dateTimePicker8.Value;
+            DateTime today = new DateTime(rawDay.Year, rawDay.Month, rawDay.Day, 0, 0, 0, DateTimeKind.Utc).AddHours(-7);
+
+            DateTime from = DateTime.MinValue;
+            DateTime to = DateTime.MaxValue;
+
+
+            DateTime from30daysago = today.AddDays(-30);
+            DateTime from90daysago = today.AddDays(-90);
+
+            var filterStage = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "FlightList", new BsonDocument
+                    {
+                        {
+                            "$elemMatch", new BsonDocument
+                            {
+                                {
+                                    "Date", new BsonDocument
+                                    {
+                                        { "$gte", today },
+                                        { "$lt", today.AddDays(1) }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            var addFieldsStage1 = new BsonDocument("$addFields", new BsonDocument
+            {
+                {
+                    "Locations", new BsonDocument("$reduce",
+                        new BsonDocument
+                        {
+                            { "input",
+                                new BsonDocument("$map",
+                                    new BsonDocument
+                                        {
+                                            { "input",
+                                                new BsonDocument("$filter",
+                                                    new BsonDocument
+                                                    {
+                                                        { "input", "$FlightList"},
+                                                        { "as", "f" },
+                                                        { "cond",
+                                                            new BsonDocument("$and",
+                                                                new BsonArray
+                                                                {
+                                                                    new BsonDocument("$lt", new BsonArray { "$$f.Date", to}),
+                                                                    new BsonDocument("$gte", new BsonArray { "$$f.Date", from})
+                                                                }
+                                                            )
+                                                        }
+                                                    }
+                                                )
+                                            },
+                                            { "as", "flight" },
+                                            { "in",
+                                                new BsonArray
+                                                {
+                                                    "$$flight.Destination",
+                                                    "$$flight.Origin"
+                                                }
+                                            }
+                                        }
+                                )
+                            },
+                            { "initialValue", new BsonArray() },
+                            { "in",
+                                new BsonDocument("$concatArrays",
+                                    new BsonArray
+                                        {
+                                            "$$this",
+                                            "$$value"
+                                        }
+                                )
+                            }
+                        }
+                    )
+                },
+                { "FlightsPast90Days",
+                    new BsonDocument("$size",
+                        new BsonDocument("$filter",
+                            new BsonDocument
+                            {
+                                { "input", "$FlightList" },
+                                { "as", "f" },
+                                { "cond",
+                                    new BsonDocument("$and",
+                                        new BsonArray
+                                        {
+                                            new BsonDocument("$lt", new BsonArray { "$$f.Date", to }),
+                                            new BsonDocument("$gte", new BsonArray { "$$f.Date", from90daysago })
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                    )
+                },
+                { "FlightsPast30Days",
+                    new BsonDocument("$size",
+                        new BsonDocument("$filter",
+                            new BsonDocument
+                            {
+                                { "input", "$FlightList" },
+                                { "as", "f" },
+                                { "cond",
+                                    new BsonDocument("$and",
+                                        new BsonArray
+                                        {
+                                            new BsonDocument("$lt", new BsonArray { "$$f.Date", to }),
+                                            new BsonDocument("$gte", new BsonArray { "$$f.Date", from30daysago })
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                    )
+                }
+            }
+            );
+
+            var addFieldsStage2 = new BsonDocument("$addFields", new BsonDocument
+            {
+                {
+                    "FlightsPast90DaysAverage", new BsonDocument("$divide",
+                        new BsonArray{"$FlightsPast90Days", 3 }
+                     )
+                }
+            }
+            );
+
+            var addFieldsStage3 = new BsonDocument("$addFields", new BsonDocument
+            {
+                {
+                    "FlightsFrequencyDifference", new BsonDocument("$subtract",
+                        new BsonArray
+                        {
+                            new BsonDocument("$multiply", new BsonArray {"$FlightsPast30Days", 3}),
+                            "$FlightsPast90Days"
+                        }
+                    )
+                }
+            }
+            );
+
+
+
+            var countRepeatedStage = new BsonDocument("$addFields",
+                new BsonDocument("Repeated",
+                    new BsonDocument("$arrayToObject",
+                        new BsonDocument("$map",
+                            new BsonDocument
+                            {
+                                { "input", new BsonDocument("$setUnion", "$Locations") },
+                                { "as", "j" },
+                                { "in", new BsonDocument
+                                    {
+                                        { "k", "$$j" },
+                                        { "v",
+                                            new BsonDocument("$size",
+                                                new BsonDocument("$filter",
+                                                    new BsonDocument
+                                                    {
+                                                        { "input", "$Locations" },
+                                                        { "cond", new BsonDocument("$eq", new BsonArray
+                                                            {
+                                                                "$$this",
+                                                                "$$j"
+                                                            }
+                                                        )}
+                                                    }
+                                                )
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        )
+                    )
+                )
+            );
+
+            var addMaxValueStage = new BsonDocument("$addFields",
+                new BsonDocument("maxValue",
+                    new BsonDocument("$reduce",
+                        new BsonDocument
+                        {
+                            { "input", new BsonDocument("$objectToArray", "$Repeated") },
+                            { "initialValue", 0 },
+                            { "in",
+                                new BsonDocument("$cond",
+                                    new BsonArray
+                                    {
+                                        new BsonDocument("$gte",
+                                            new BsonArray
+                                            {
+                                                "$$this.v",
+                                                "$$value"
+                                            }
+                                        ),
+                                        "$$this.v",
+                                        "$$value"
+                                    }
+                                )
+                            }
+                        }
+                    )
+                )
+            );
+
+            var addFlightDetailsStage = new BsonDocument("$addFields",
+                new BsonDocument("FlightDetails",
+                    new BsonDocument("$filter",
+                        new BsonDocument
+                        {
+                            { "input", "$FlightList" },
+                            { "as", "flight" },
+                            { "cond",
+                                new BsonDocument("$and",
+                                    new BsonArray
+                                    {
+                                        new BsonDocument("$lt", new BsonArray { "$$flight.Date", today.AddDays(1)}),
+                                        new BsonDocument("$gte", new BsonArray { "$$flight.Date", today})
+                                    }
+                                )
+                            }
+                        }
+                    )
+                )
+            );
+
+            var pipeline = new[]
+            {
+                filterStage,
+                addFieldsStage1,
+                new BsonDocument("$match", new BsonDocument { { "FlightsPast30Days", new BsonDocument("$gte", threshold) } }),
+                addFieldsStage2,
+                addFieldsStage3,
+                countRepeatedStage,
+                addMaxValueStage,
+                addFlightDetailsStage,
+                // new BsonDocument("$match", new BsonDocument { { "FlightsFrequencyDifference", new BsonDocument("$gte", 1) } }),
+                new BsonDocument("$sort", new BsonDocument { { "FlightsPast90Days", -1 }})
+            };
+
+            if (!backgroundWorker5.IsBusy)
+            {
+                backgroundWorker5.RunWorkerAsync(pipeline);
             }
         }
 
@@ -1466,6 +1743,7 @@ namespace ChongBuonLauFW
 
             dataTable.Columns.Add("Tuyến đường");
             dataTable.Columns.Add("Số lần nhiều nhất");
+            dataTable.Columns.Add("Ghi chú");
 
 
             foreach (var doc in result)
@@ -1476,6 +1754,11 @@ namespace ChongBuonLauFW
                 var row = dataTable.NewRow();
 
                 row["Số giấy tờ"] = doc.GetValue("IdNum", string.Empty);
+                row["Ghi chú"] = doc.GetValue("Note", string.Empty);
+                if ((string)row["Ghi chú"] == "BsonNull")
+                {
+                    row["Ghi chú"] = "";
+                }
                 row["Họ tên"] = doc.GetValue("Name", string.Empty);
                 row["Giới tính"] = doc.GetValue("Sex", string.Empty);
                 row["Quốc tịch"] = doc.GetValue("Nationality", string.Empty);
@@ -1543,6 +1826,121 @@ namespace ChongBuonLauFW
             }
         }
 
+
+        private void BackgroundWorker5_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var worker = sender as BackgroundWorker;
+            var pipeline = e.Argument as BsonDocument[];
+
+            if (worker == null || pipeline == null)
+            {
+                return;
+            }
+
+            var collection = MongoUserCollection.GetMongoUserCollection();
+            var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
+
+            // Create a new DataTable to store the results
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("Ngày bay");
+            dataTable.Columns.Add("Chuyến bay");
+            dataTable.Columns.Add("Số ghế");
+            dataTable.Columns.Add("Họ tên");
+            dataTable.Columns.Add("Giới tính");
+            dataTable.Columns.Add("Quốc tịch");
+            dataTable.Columns.Add("Ngày sinh");
+            dataTable.Columns.Add("Loại giấy tờ");
+            dataTable.Columns.Add("Số giấy tờ");
+            dataTable.Columns.Add("Nơi cấp");
+            dataTable.Columns.Add("Nơi đi");
+            dataTable.Columns.Add("Nơi đến");
+            dataTable.Columns.Add("Hành lý");
+
+            dataTable.Columns.Add("Tuyến đường");
+            dataTable.Columns.Add("Số lần nhiều nhất");
+
+            dataTable.Columns.Add("Số chuyến trong vòng 90 ngày");
+            dataTable.Columns.Add("Số chuyến trung bình mỗi 30 ngày");
+            dataTable.Columns.Add("Số chuyến trong vòng 30 ngày");
+
+            dataTable.Columns.Add("Color");
+
+            foreach (var doc in result)
+            {
+                TimeZoneInfo vstZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+                DateTime flightdate = TimeZoneInfo.ConvertTimeFromUtc(doc["FlightDetails"][0]["Date"].ToUniversalTime(), vstZone);
+
+                var row = dataTable.NewRow();
+
+                row["Số giấy tờ"] = doc.GetValue("IdNum", string.Empty);
+                row["Họ tên"] = doc.GetValue("Name", string.Empty);
+                row["Giới tính"] = doc.GetValue("Sex", string.Empty);
+                row["Quốc tịch"] = doc.GetValue("Nationality", string.Empty);
+                row["Ngày sinh"] = doc.GetValue("DOB", string.Empty);
+                row["Loại giấy tờ"] = doc.GetValue("IdType", string.Empty);
+                row["Nơi cấp"] = doc.GetValue("IdProv", string.Empty);
+                var repeatedField = doc.GetValue("Repeated", new BsonDocument()).AsBsonDocument;
+                var repeatedString = string.Empty;
+
+                foreach (var element in repeatedField)
+                {
+                    var key = element.Name;
+                    var value = element.Value.ToString();
+                    repeatedString += $"{key}: {value}, ";
+                }
+                row["Tuyến đường"] = repeatedString;
+                row["Số lần nhiều nhất"] = doc.GetValue("maxValue", 0).ToInt32();
+
+                row["Nơi đi"] = doc["FlightDetails"][0]["Origin"];
+                row["Nơi đến"] = doc["FlightDetails"][0]["Destination"];
+                row["Hành lý"] = doc["FlightDetails"][0]["Luggage"];
+                row["Ngày bay"] = flightdate.ToString("dd/MM/yyyy");
+                row["Chuyến bay"] = doc["FlightDetails"][0]["FlightNumber"];
+                row["Số ghế"] = doc["FlightDetails"][0]["Seat"];
+
+                row["Số chuyến trong vòng 90 ngày"] = doc["FlightsPast90Days"];
+                row["Số chuyến trung bình mỗi 30 ngày"] = (float)doc["FlightsPast90Days"].AsInt32 / 3;
+                row["Số chuyến trong vòng 30 ngày"] = doc["FlightsPast30Days"];
+                if (doc["FlightsPast30Days"].AsInt32 > (float)doc["FlightsPast90Days"].AsInt32 / 3)
+                {
+                    row["Color"] = "yellow";
+                }
+                else
+                {
+                    row["Color"] = "white";
+                }
+
+                dataTable.Rows.Add(row);
+            }
+
+            e.Result = dataTable;
+        }
+
+        private void BackgroundWorker5_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            button20.Enabled = true;
+            if (e.Error != null)
+            {
+                MessageBox.Show($"Error: {e.Error.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!e.Cancelled)
+            {
+                var dataTable = e.Result as DataTable;
+                dataGridView6.DataSource = dataTable;
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    if (i < dataGridView6.Rows.Count)
+                    {
+                        dataGridView6.Rows[i].HeaderCell.Value = "" + (i + 1);
+                    }
+                }
+                dataGridView6.Columns["Color"].Visible = false;
+                dataGridView6.Columns["Tuyến đường"].Visible = false;
+                dataGridView6.Columns["Số lần nhiều nhất"].Visible = false;
+            }
+        }
+
+
         private void dataGridView2_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
@@ -1556,6 +1954,21 @@ namespace ChongBuonLauFW
                 row.DefaultCellStyle.BackColor = Color.LightGray;
             }
         }
+
+        private void dataGridView6_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            DataGridViewRow row = dataGridView6.Rows[e.RowIndex];
+
+            if (row.Cells["Color"].Value != null && row.Cells["Color"].Value.ToString().Contains("yellow"))
+            {
+                row.DefaultCellStyle.BackColor = Color.Yellow;
+            }
+            else
+            {
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -1655,6 +2068,21 @@ namespace ChongBuonLauFW
             form.Show();
 
         }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            FindFlightFrequency();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportToExcel(dataGridView6);
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportFormHK(dataGridView6);
+        }
     }
     public class Person
     {
@@ -1666,6 +2094,7 @@ namespace ChongBuonLauFW
         public string DOB { get; set; }
         public string IdType { get; set; }
         public string IdProv { get; set; }
+        public string Note { get; set; }
         public List<Flight> FlightList { get; set; }
     }
     public class Flight

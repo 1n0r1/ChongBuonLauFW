@@ -48,10 +48,18 @@ namespace ChongBuonLauFW
                     }
                     for (int i = 0; i < dataGridView.Rows.Count; i++)
                     {
+                        bool isYellow = false;
+                        var colorCell = dataGridView.Columns.Contains("Color") ? dataGridView.Rows[i].Cells["Color"].Value : null;
+                        if (colorCell != null && colorCell.ToString() == "yellow") isYellow = true;
+
                         for (int j = 0; j < dataGridView.Columns.Count; j++)
                         {
                             object cellValue = dataGridView.Rows[i].Cells[j].Value;
                             worksheet.Cell(i + 2, j + 1).Value = cellValue?.ToString() ?? "";
+                            if (isYellow)
+                            {
+                                worksheet.Cell(i + 2, j + 1).Style.Fill.BackgroundColor = XLColor.Yellow;
+                            }
                         }
                     }
 
@@ -240,6 +248,10 @@ namespace ChongBuonLauFW
 
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
+                        bool isYellow = false;
+                        var colorCell = dataGridView.Columns.Contains("Color") ? row.Cells["Color"].Value : null;
+                        if (colorCell != null && colorCell.ToString() == "yellow") isYellow = true;
+
                         if (row.Cells["Chuyến bay"].Value == null) break;
 
                         string currentChuyenBay = row.Cells["Chuyến bay"].Value?.ToString() ?? "";
@@ -275,6 +287,14 @@ namespace ChongBuonLauFW
                         worksheet.Cell(index + 8, 9).Value = row.Cells["Quốc tịch"].Value?.ToString() ?? "";
                         worksheet.Cell(index + 8, 10).Value = row.Cells["Số giấy tờ"].Value?.ToString() ?? "";
                         worksheet.Cell(index + 8, 11).Value = row.Cells["Hành lý"].Value?.ToString() ?? "";
+
+                        if (isYellow)
+                        {
+                            for (int i = 1; i <= 11; i++)
+                            {
+                                worksheet.Cell(index + 8, i).Style.Fill.BackgroundColor = XLColor.Yellow;
+                            }
+                        }
 
                         index++;
                     }

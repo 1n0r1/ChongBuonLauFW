@@ -25,6 +25,8 @@ namespace ChongBuonLauFW
             var collection = MongoUserCollection.GetDSRRCollection(1);
             var deleteResult = collection.DeleteMany(Builders<BsonDocument>.Filter.Empty);
 
+            var userCollection = MongoUserCollection.GetMongoUserCollection();
+
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
                 string id = row.Cells["Số giấy tờ"].Value?.ToString() + ";";
@@ -36,6 +38,14 @@ namespace ChongBuonLauFW
                 };
 
                 collection.InsertOne(document);
+
+
+                string updatedNote = row.Cells["Ghi chú"].Value?.ToString();
+
+                var filter = Builders<Person>.Filter.Eq("IdNum", id);
+                var update = Builders<Person>.Update.Set("Note", updatedNote);
+
+                var result = userCollection.UpdateOne(filter, update);
             }
             ShowCurrentList();
         }
@@ -52,6 +62,8 @@ namespace ChongBuonLauFW
             dataGridView2.Columns.Add("Số giấy tờ", "Số giấy tờ");
             dataGridView2.Columns.Add("Họ Tên", "Họ Tên");
             dataGridView2.Columns.Add("Số chuyến trong hệ thống", "Số chuyến trong hệ thống");
+            dataGridView2.Columns.Add("Ghi chú", "Ghi chú");
+
 
             var collectionRR = MongoUserCollection.GetDSRRCollection(1);
             var collection = MongoUserCollection.GetMongoUserCollection();
@@ -62,7 +74,7 @@ namespace ChongBuonLauFW
 
                 string name = "-";
                 int countFlight = 0;
-
+                string note = "";
                 var filter = Builders<Person>.Filter.Eq("IdNum", id);
                 var person = collection.Find(filter).FirstOrDefault();
 
@@ -70,10 +82,11 @@ namespace ChongBuonLauFW
                 {
                     name = person.Name;
                     countFlight = person.FlightList.Count;
+                    note = person.Note;
                 }
 
                 DataGridViewRow dataGridViewRow = new DataGridViewRow();
-                dataGridViewRow.CreateCells(dataGridView2, id.Substring(0, id.Length - 1), name, countFlight);
+                dataGridViewRow.CreateCells(dataGridView2, id.Substring(0, id.Length - 1), name, countFlight, note);
                 dataGridView2.Rows.Add(dataGridViewRow);
             }
         }

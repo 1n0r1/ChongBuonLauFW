@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,10 @@ namespace ChongBuonLauFW
 {
     public partial class Form2 : Form
     {
-        public Form2(string id)
+        private string id;
+        public Form2(string id_input)
         {
+            id = id_input;
             InitializeComponent();
 
             var collection = MongoUserCollection.GetMongoUserCollection();
@@ -66,9 +69,12 @@ namespace ChongBuonLauFW
                         row.CreateCells(dataGridView1, flightdate, flightNumber, seat, name, sex, nat, dob, idtype, idnum, idprov, sta, des, luggage);
                         dataGridView1.Rows.Add(row);
                     }
+
+                    textBox1.Text = res.Note;
                 }
                 dataGridView1.Sort(dataGridView1.Columns["Ngày bay"], ListSortDirection.Ascending);
             }
+
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -79,6 +85,16 @@ namespace ChongBuonLauFW
         private void button3_Click(object sender, EventArgs e)
         {
             ExcelExporter.ExportToExcel(dataGridView1);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var collection = MongoUserCollection.GetMongoUserCollection();
+            var filter = Builders<Person>.Filter.Eq("IdNum", id);
+            var update = Builders<Person>.Update
+                .Set("Note", textBox1.Text);
+            var updateResult = collection.UpdateOne(filter, update);
+
         }
     }
 }
