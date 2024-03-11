@@ -112,6 +112,7 @@ namespace ChongBuonLauFW
             this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
             this.button23 = new System.Windows.Forms.Button();
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.label22 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -340,6 +341,7 @@ namespace ChongBuonLauFW
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label22);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button3);
@@ -1148,6 +1150,15 @@ namespace ChongBuonLauFW
             this.dataGridView7.Size = new System.Drawing.Size(1155, 495);
             this.dataGridView7.TabIndex = 70;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(3, 3);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(51, 16);
+            this.label22.TabIndex = 39;
+            this.label22.Text = "v1.0.0.2";
+            // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1273,5 +1284,6 @@ namespace ChongBuonLauFW
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
     }
 }
