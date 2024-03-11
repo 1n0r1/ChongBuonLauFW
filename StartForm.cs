@@ -1402,7 +1402,7 @@ namespace ChongBuonLauFW
         private void FindFlightShortTerm()
         {
             button23.Enabled = false;
-            Double days_threshold = (double)numericUpDown5.Value;
+            Double days_threshold = (double)numericUpDown5.Value - 1;
             decimal count_threshold = numericUpDown6.Value;
             DateTime rawDay = dateTimePicker9.Value;
             DateTime today = new DateTime(rawDay.Year, rawDay.Month, rawDay.Day, 0, 0, 0, DateTimeKind.Utc).AddHours(-7);
@@ -1413,7 +1413,7 @@ namespace ChongBuonLauFW
                     "FlightList", new BsonDocument
                     {
                         {
-                            "$elemMatch", new BsonDocument
+                           "$elemMatch", new BsonDocument
                             {
                                 {
                                     "Date", new BsonDocument
@@ -1421,7 +1421,8 @@ namespace ChongBuonLauFW
                                         { "$gte", today },
                                         { "$lt", today.AddDays(1) }
                                     }
-                                }
+                                },
+                                { "Destination", "SGN" }
                             }
                         }
                     }
@@ -1443,6 +1444,14 @@ namespace ChongBuonLauFW
                                             {
                                                 { "$and", new BsonArray
                                                     {
+                                                        new BsonDocument("$or", new BsonArray {
+                                                            new BsonDocument {
+                                                                { "Destination", "SGN" }
+                                                            },
+                                                            new BsonDocument {
+                                                                { "Origin", "SGN" }
+                                                            }
+                                                        }),
                                                         new BsonDocument("$gte", new BsonArray { "$$flight.Date", today.AddDays(-days_threshold) }),
                                                         new BsonDocument("$lt", new BsonArray { "$$flight.Date", today.AddDays(1) })
                                                     }
@@ -2250,39 +2259,6 @@ namespace ChongBuonLauFW
             ExcelExporter.ExportFormHK(dataGridView7);
         }
     }
-    public class Person
-    {
-        public ObjectId _id { get; set; }
-        public string IdNum { get; set; }
-        public string Name { get; set; }
-        public string Sex { get; set; }
-        public string Nationality { get; set; }
-        public string DOB { get; set; }
-        public string IdType { get; set; }
-        public string IdProv { get; set; }
-        public string Note { get; set; }
-        public List<Flight> FlightList { get; set; }
-    }
-    public class Flight
-    {
-        public string Origin { get; set; }
-        public string Destination { get; set; }
-        public string Luggage { get; set; }
-        public DateTime Date { get; set; }
-        public string FlightNumber { get; set; }
-        public string Seat { get; set; }
-    }
-
-    public class AirportData
-    {
-        public ObjectId _id { get; set; }
-        public string Continent { get; set; }
-        public string CountryCode { get; set; }
-        public string Region { get; set; }
-        public string Code { get; set; }
-        public string CountryName { get; set; }
-    }
-
 
 }
 
