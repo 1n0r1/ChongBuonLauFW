@@ -140,7 +140,7 @@ namespace ChongBuonLauFW
             // 
             this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(16, 506);
+            this.checkBox2.Location = new System.Drawing.Point(16, 511);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(93, 20);
@@ -154,7 +154,7 @@ namespace ChongBuonLauFW
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(478, 542);
+            this.checkBox1.Location = new System.Drawing.Point(478, 547);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(149, 20);
@@ -166,7 +166,7 @@ namespace ChongBuonLauFW
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(296, 543);
+            this.label8.Location = new System.Drawing.Point(296, 548);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 16);
             this.label8.TabIndex = 30;
@@ -176,7 +176,7 @@ namespace ChongBuonLauFW
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(418, 544);
+            this.label7.Location = new System.Drawing.Point(418, 549);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(25, 16);
             this.label7.TabIndex = 29;
@@ -185,7 +185,7 @@ namespace ChongBuonLauFW
             // numericUpDown1
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown1.Location = new System.Drawing.Point(349, 541);
+            this.numericUpDown1.Location = new System.Drawing.Point(349, 546);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(63, 22);
@@ -200,7 +200,7 @@ namespace ChongBuonLauFW
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(162, 541);
+            this.label6.Location = new System.Drawing.Point(162, 546);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 16);
             this.label6.TabIndex = 27;
@@ -210,7 +210,7 @@ namespace ChongBuonLauFW
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 541);
+            this.label5.Location = new System.Drawing.Point(13, 546);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 16);
             this.label5.TabIndex = 26;
@@ -219,7 +219,7 @@ namespace ChongBuonLauFW
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox2.Location = new System.Drawing.Point(183, 541);
+            this.textBox2.Location = new System.Drawing.Point(183, 546);
             this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(89, 22);
@@ -228,7 +228,7 @@ namespace ChongBuonLauFW
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(67, 541);
+            this.textBox1.Location = new System.Drawing.Point(67, 546);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(89, 22);
@@ -238,7 +238,7 @@ namespace ChongBuonLauFW
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(312, 509);
+            this.label3.Location = new System.Drawing.Point(312, 514);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 16);
             this.label3.TabIndex = 23;
@@ -247,7 +247,7 @@ namespace ChongBuonLauFW
             // dateTimePicker2
             // 
             this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(350, 504);
+            this.dateTimePicker2.Location = new System.Drawing.Point(350, 509);
             this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(179, 22);
@@ -256,7 +256,7 @@ namespace ChongBuonLauFW
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(121, 504);
+            this.dateTimePicker1.Location = new System.Drawing.Point(121, 509);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(179, 22);
@@ -265,7 +265,7 @@ namespace ChongBuonLauFW
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(1076, 0);
+            this.button2.Location = new System.Drawing.Point(1077, 0);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(105, 39);
@@ -287,13 +287,13 @@ namespace ChongBuonLauFW
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1151, 422);
+            this.dataGridView1.Size = new System.Drawing.Size(1152, 427);
             this.dataGridView1.TabIndex = 34;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1076, 524);
+            this.button1.Location = new System.Drawing.Point(1077, 529);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 39);
@@ -305,7 +305,7 @@ namespace ChongBuonLauFW
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(942, 0);
+            this.button3.Location = new System.Drawing.Point(943, 0);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(105, 39);
@@ -317,7 +317,7 @@ namespace ChongBuonLauFW
             // dateTimePicker3
             // 
             this.dateTimePicker3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker3.Location = new System.Drawing.Point(641, 544);
+            this.dateTimePicker3.Location = new System.Drawing.Point(641, 549);
             this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(179, 22);
@@ -336,7 +336,7 @@ namespace ChongBuonLauFW
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1235, 637);
+            this.tabControl1.Size = new System.Drawing.Size(1236, 642);
             this.tabControl1.TabIndex = 38;
             // 
             // tabPage1
@@ -362,7 +362,7 @@ namespace ChongBuonLauFW
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage1.Size = new System.Drawing.Size(1228, 613);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "KH thường xuyên";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -397,7 +397,7 @@ namespace ChongBuonLauFW
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage2.Size = new System.Drawing.Size(1228, 613);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Hành lý hôm nay";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -406,7 +406,7 @@ namespace ChongBuonLauFW
             // 
             this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(793, 626);
+            this.checkBox3.Location = new System.Drawing.Point(771, 575);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(118, 20);
             this.checkBox3.TabIndex = 50;
@@ -417,7 +417,7 @@ namespace ChongBuonLauFW
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(790, 599);
+            this.label15.Location = new System.Drawing.Point(768, 548);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(64, 16);
             this.label15.TabIndex = 49;
@@ -430,7 +430,7 @@ namespace ChongBuonLauFW
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(869, 596);
+            this.comboBox1.Location = new System.Drawing.Point(918, 571);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(164, 24);
             this.comboBox1.TabIndex = 48;
@@ -462,7 +462,7 @@ namespace ChongBuonLauFW
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(952, 5);
+            this.button7.Location = new System.Drawing.Point(953, 5);
             this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(105, 39);
@@ -474,7 +474,7 @@ namespace ChongBuonLauFW
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(1063, 4);
+            this.button5.Location = new System.Drawing.Point(1064, 4);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(105, 39);
@@ -486,7 +486,7 @@ namespace ChongBuonLauFW
             // dateTimePicker4
             // 
             this.dateTimePicker4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker4.Location = new System.Drawing.Point(490, 616);
+            this.dateTimePicker4.Location = new System.Drawing.Point(462, 576);
             this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker4.Name = "dateTimePicker4";
             this.dateTimePicker4.Size = new System.Drawing.Size(179, 22);
@@ -495,7 +495,7 @@ namespace ChongBuonLauFW
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(1063, 599);
+            this.button4.Location = new System.Drawing.Point(1088, 553);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(105, 39);
@@ -508,7 +508,7 @@ namespace ChongBuonLauFW
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(48, 616);
+            this.label4.Location = new System.Drawing.Point(20, 576);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 16);
             this.label4.TabIndex = 40;
@@ -518,7 +518,7 @@ namespace ChongBuonLauFW
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(292, 618);
+            this.label1.Location = new System.Drawing.Point(264, 578);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 16);
             this.label1.TabIndex = 39;
@@ -528,7 +528,7 @@ namespace ChongBuonLauFW
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(414, 619);
+            this.label2.Location = new System.Drawing.Point(386, 579);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 38;
@@ -537,7 +537,7 @@ namespace ChongBuonLauFW
             // numericUpDown2
             // 
             this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown2.Location = new System.Drawing.Point(345, 616);
+            this.numericUpDown2.Location = new System.Drawing.Point(317, 576);
             this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(63, 22);
@@ -551,7 +551,7 @@ namespace ChongBuonLauFW
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox3.Location = new System.Drawing.Point(121, 614);
+            this.textBox3.Location = new System.Drawing.Point(93, 574);
             this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(145, 22);
@@ -570,7 +570,7 @@ namespace ChongBuonLauFW
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1135, 517);
+            this.dataGridView2.Size = new System.Drawing.Size(1136, 447);
             this.dataGridView2.TabIndex = 35;
             // 
             // tabPage3
@@ -590,7 +590,7 @@ namespace ChongBuonLauFW
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage3.Size = new System.Drawing.Size(1228, 613);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Lưu ý hôm nay";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -599,7 +599,7 @@ namespace ChongBuonLauFW
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(814, 589);
+            this.label16.Location = new System.Drawing.Point(832, 577);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(64, 16);
             this.label16.TabIndex = 56;
@@ -612,7 +612,7 @@ namespace ChongBuonLauFW
             this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(889, 586);
+            this.comboBox2.Location = new System.Drawing.Point(907, 574);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(164, 24);
             this.comboBox2.TabIndex = 55;
@@ -620,7 +620,7 @@ namespace ChongBuonLauFW
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(957, 11);
+            this.button6.Location = new System.Drawing.Point(958, 11);
             this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(105, 39);
@@ -632,7 +632,7 @@ namespace ChongBuonLauFW
             // button8
             // 
             this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(1068, 11);
+            this.button8.Location = new System.Drawing.Point(1069, 11);
             this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(105, 39);
@@ -644,7 +644,7 @@ namespace ChongBuonLauFW
             // dateTimePicker5
             // 
             this.dateTimePicker5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker5.Location = new System.Drawing.Point(475, 587);
+            this.dateTimePicker5.Location = new System.Drawing.Point(492, 575);
             this.dateTimePicker5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker5.Name = "dateTimePicker5";
             this.dateTimePicker5.Size = new System.Drawing.Size(179, 22);
@@ -653,7 +653,7 @@ namespace ChongBuonLauFW
             // button9
             // 
             this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button9.Location = new System.Drawing.Point(1068, 577);
+            this.button9.Location = new System.Drawing.Point(1086, 565);
             this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(105, 39);
@@ -666,7 +666,7 @@ namespace ChongBuonLauFW
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(33, 587);
+            this.label9.Location = new System.Drawing.Point(50, 575);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 16);
             this.label9.TabIndex = 50;
@@ -676,7 +676,7 @@ namespace ChongBuonLauFW
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(277, 589);
+            this.label10.Location = new System.Drawing.Point(294, 577);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(41, 16);
             this.label10.TabIndex = 49;
@@ -686,7 +686,7 @@ namespace ChongBuonLauFW
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(399, 590);
+            this.label11.Location = new System.Drawing.Point(416, 578);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(25, 16);
             this.label11.TabIndex = 48;
@@ -695,7 +695,7 @@ namespace ChongBuonLauFW
             // numericUpDown3
             // 
             this.numericUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown3.Location = new System.Drawing.Point(330, 587);
+            this.numericUpDown3.Location = new System.Drawing.Point(347, 575);
             this.numericUpDown3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(63, 22);
@@ -709,7 +709,7 @@ namespace ChongBuonLauFW
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox4.Location = new System.Drawing.Point(106, 585);
+            this.textBox4.Location = new System.Drawing.Point(123, 573);
             this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(145, 22);
@@ -728,7 +728,7 @@ namespace ChongBuonLauFW
             this.dataGridView3.ReadOnly = true;
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(1155, 495);
+            this.dataGridView3.Size = new System.Drawing.Size(1156, 471);
             this.dataGridView3.TabIndex = 45;
             // 
             // tabPage4
@@ -742,7 +742,7 @@ namespace ChongBuonLauFW
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage4.Size = new System.Drawing.Size(1228, 613);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "KH rủi ro";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -761,7 +761,7 @@ namespace ChongBuonLauFW
             // button10
             // 
             this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.Location = new System.Drawing.Point(932, 11);
+            this.button10.Location = new System.Drawing.Point(933, 11);
             this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(105, 39);
@@ -773,7 +773,7 @@ namespace ChongBuonLauFW
             // button11
             // 
             this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button11.Location = new System.Drawing.Point(1058, 11);
+            this.button11.Location = new System.Drawing.Point(1059, 11);
             this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(105, 39);
@@ -785,7 +785,7 @@ namespace ChongBuonLauFW
             // dateTimePicker6
             // 
             this.dateTimePicker6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker6.Location = new System.Drawing.Point(847, 587);
+            this.dateTimePicker6.Location = new System.Drawing.Point(870, 579);
             this.dateTimePicker6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker6.Name = "dateTimePicker6";
             this.dateTimePicker6.Size = new System.Drawing.Size(179, 22);
@@ -794,7 +794,7 @@ namespace ChongBuonLauFW
             // button12
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button12.Location = new System.Drawing.Point(1058, 570);
+            this.button12.Location = new System.Drawing.Point(1082, 562);
             this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(105, 39);
@@ -816,7 +816,7 @@ namespace ChongBuonLauFW
             this.dataGridView4.ReadOnly = true;
             this.dataGridView4.RowHeadersWidth = 51;
             this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(1145, 482);
+            this.dataGridView4.Size = new System.Drawing.Size(1146, 487);
             this.dataGridView4.TabIndex = 55;
             // 
             // tabPage5
@@ -830,7 +830,7 @@ namespace ChongBuonLauFW
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage5.Size = new System.Drawing.Size(1228, 613);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Đối tượng theo dõi khác";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -849,7 +849,7 @@ namespace ChongBuonLauFW
             // button15
             // 
             this.button15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button15.Location = new System.Drawing.Point(939, 22);
+            this.button15.Location = new System.Drawing.Point(940, 22);
             this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(105, 39);
@@ -861,7 +861,7 @@ namespace ChongBuonLauFW
             // button16
             // 
             this.button16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button16.Location = new System.Drawing.Point(1065, 22);
+            this.button16.Location = new System.Drawing.Point(1066, 22);
             this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(105, 39);
@@ -873,7 +873,7 @@ namespace ChongBuonLauFW
             // dateTimePicker7
             // 
             this.dateTimePicker7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker7.Location = new System.Drawing.Point(854, 598);
+            this.dateTimePicker7.Location = new System.Drawing.Point(854, 579);
             this.dateTimePicker7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker7.Name = "dateTimePicker7";
             this.dateTimePicker7.Size = new System.Drawing.Size(179, 22);
@@ -882,7 +882,7 @@ namespace ChongBuonLauFW
             // button17
             // 
             this.button17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button17.Location = new System.Drawing.Point(1065, 581);
+            this.button17.Location = new System.Drawing.Point(1066, 573);
             this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(105, 39);
@@ -904,7 +904,7 @@ namespace ChongBuonLauFW
             this.dataGridView5.ReadOnly = true;
             this.dataGridView5.RowHeadersWidth = 51;
             this.dataGridView5.RowTemplate.Height = 24;
-            this.dataGridView5.Size = new System.Drawing.Size(1145, 482);
+            this.dataGridView5.Size = new System.Drawing.Size(1146, 487);
             this.dataGridView5.TabIndex = 66;
             // 
             // tabPage6
@@ -920,7 +920,7 @@ namespace ChongBuonLauFW
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage6.Size = new System.Drawing.Size(1228, 613);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Tần suất đi lại";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -929,7 +929,7 @@ namespace ChongBuonLauFW
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(558, 607);
+            this.label17.Location = new System.Drawing.Point(559, 589);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(156, 16);
             this.label17.TabIndex = 69;
@@ -939,7 +939,7 @@ namespace ChongBuonLauFW
             // 
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(801, 608);
+            this.label18.Location = new System.Drawing.Point(802, 590);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(25, 16);
             this.label18.TabIndex = 68;
@@ -948,7 +948,7 @@ namespace ChongBuonLauFW
             // numericUpDown4
             // 
             this.numericUpDown4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown4.Location = new System.Drawing.Point(732, 605);
+            this.numericUpDown4.Location = new System.Drawing.Point(733, 587);
             this.numericUpDown4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(63, 22);
@@ -962,7 +962,7 @@ namespace ChongBuonLauFW
             // button18
             // 
             this.button18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button18.Location = new System.Drawing.Point(959, 19);
+            this.button18.Location = new System.Drawing.Point(960, 19);
             this.button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(105, 39);
@@ -974,7 +974,7 @@ namespace ChongBuonLauFW
             // button19
             // 
             this.button19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button19.Location = new System.Drawing.Point(1070, 19);
+            this.button19.Location = new System.Drawing.Point(1071, 19);
             this.button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(105, 39);
@@ -986,7 +986,7 @@ namespace ChongBuonLauFW
             // dateTimePicker8
             // 
             this.dateTimePicker8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker8.Location = new System.Drawing.Point(871, 602);
+            this.dateTimePicker8.Location = new System.Drawing.Point(871, 584);
             this.dateTimePicker8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker8.Name = "dateTimePicker8";
             this.dateTimePicker8.Size = new System.Drawing.Size(179, 22);
@@ -995,7 +995,7 @@ namespace ChongBuonLauFW
             // button20
             // 
             this.button20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button20.Location = new System.Drawing.Point(1070, 585);
+            this.button20.Location = new System.Drawing.Point(1071, 567);
             this.button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(105, 39);
@@ -1017,7 +1017,7 @@ namespace ChongBuonLauFW
             this.dataGridView6.ReadOnly = true;
             this.dataGridView6.RowHeadersWidth = 51;
             this.dataGridView6.RowTemplate.Height = 24;
-            this.dataGridView6.Size = new System.Drawing.Size(1155, 495);
+            this.dataGridView6.Size = new System.Drawing.Size(1156, 484);
             this.dataGridView6.TabIndex = 57;
             // 
             // tabPage7
@@ -1035,7 +1035,7 @@ namespace ChongBuonLauFW
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1227, 608);
+            this.tabPage7.Size = new System.Drawing.Size(1228, 613);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Đi lại ngắn hạn";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1043,7 +1043,7 @@ namespace ChongBuonLauFW
             // numericUpDown6
             // 
             this.numericUpDown6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown6.Location = new System.Drawing.Point(528, 610);
+            this.numericUpDown6.Location = new System.Drawing.Point(529, 587);
             this.numericUpDown6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(63, 22);
@@ -1058,7 +1058,7 @@ namespace ChongBuonLauFW
             // 
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(481, 613);
+            this.label21.Location = new System.Drawing.Point(482, 590);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(41, 16);
             this.label21.TabIndex = 78;
@@ -1068,7 +1068,7 @@ namespace ChongBuonLauFW
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(780, 612);
+            this.label20.Location = new System.Drawing.Point(781, 589);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(37, 16);
             this.label20.TabIndex = 77;
@@ -1078,7 +1078,7 @@ namespace ChongBuonLauFW
             // 
             this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(597, 612);
+            this.label19.Location = new System.Drawing.Point(598, 589);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(91, 16);
             this.label19.TabIndex = 76;
@@ -1087,7 +1087,7 @@ namespace ChongBuonLauFW
             // numericUpDown5
             // 
             this.numericUpDown5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown5.Location = new System.Drawing.Point(711, 610);
+            this.numericUpDown5.Location = new System.Drawing.Point(712, 587);
             this.numericUpDown5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(63, 22);
@@ -1101,7 +1101,7 @@ namespace ChongBuonLauFW
             // button21
             // 
             this.button21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button21.Location = new System.Drawing.Point(963, 24);
+            this.button21.Location = new System.Drawing.Point(964, 24);
             this.button21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(105, 39);
@@ -1113,7 +1113,7 @@ namespace ChongBuonLauFW
             // button22
             // 
             this.button22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button22.Location = new System.Drawing.Point(1074, 24);
+            this.button22.Location = new System.Drawing.Point(1075, 24);
             this.button22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(105, 39);
@@ -1125,7 +1125,7 @@ namespace ChongBuonLauFW
             // dateTimePicker9
             // 
             this.dateTimePicker9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker9.Location = new System.Drawing.Point(875, 607);
+            this.dateTimePicker9.Location = new System.Drawing.Point(876, 584);
             this.dateTimePicker9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker9.Name = "dateTimePicker9";
             this.dateTimePicker9.Size = new System.Drawing.Size(179, 22);
@@ -1134,7 +1134,7 @@ namespace ChongBuonLauFW
             // button23
             // 
             this.button23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button23.Location = new System.Drawing.Point(1074, 590);
+            this.button23.Location = new System.Drawing.Point(1075, 567);
             this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(105, 39);
@@ -1156,14 +1156,14 @@ namespace ChongBuonLauFW
             this.dataGridView7.ReadOnly = true;
             this.dataGridView7.RowHeadersWidth = 51;
             this.dataGridView7.RowTemplate.Height = 24;
-            this.dataGridView7.Size = new System.Drawing.Size(1155, 495);
+            this.dataGridView7.Size = new System.Drawing.Size(1156, 472);
             this.dataGridView7.TabIndex = 70;
             // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1235, 637);
+            this.ClientSize = new System.Drawing.Size(1236, 642);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(1253, 684);
             this.Name = "StartForm";
