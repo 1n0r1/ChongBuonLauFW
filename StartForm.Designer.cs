@@ -48,6 +48,7 @@ namespace ChongBuonLauFW
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -112,7 +113,6 @@ namespace ChongBuonLauFW
             this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
             this.button23 = new System.Windows.Forms.Button();
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
-            this.label22 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -367,6 +367,15 @@ namespace ChongBuonLauFW
             this.tabPage1.Text = "KH thường xuyên";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(3, 3);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(51, 16);
+            this.label22.TabIndex = 39;
+            this.label22.Text = "v1.0.0.8";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.checkBox3);
@@ -388,7 +397,7 @@ namespace ChongBuonLauFW
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1203, 656);
+            this.tabPage2.Size = new System.Drawing.Size(1227, 608);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Hành lý hôm nay";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -581,7 +590,7 @@ namespace ChongBuonLauFW
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1203, 656);
+            this.tabPage3.Size = new System.Drawing.Size(1227, 608);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Lưu ý hôm nay";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -733,7 +742,7 @@ namespace ChongBuonLauFW
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1203, 656);
+            this.tabPage4.Size = new System.Drawing.Size(1227, 608);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "KH rủi ro";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -821,7 +830,7 @@ namespace ChongBuonLauFW
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1203, 656);
+            this.tabPage5.Size = new System.Drawing.Size(1227, 608);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Đối tượng theo dõi khác";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -911,7 +920,7 @@ namespace ChongBuonLauFW
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1203, 656);
+            this.tabPage6.Size = new System.Drawing.Size(1227, 608);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Tần suất đi lại";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1026,7 +1035,7 @@ namespace ChongBuonLauFW
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1203, 656);
+            this.tabPage7.Size = new System.Drawing.Size(1227, 608);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Đi lại ngắn hạn";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1149,15 +1158,6 @@ namespace ChongBuonLauFW
             this.dataGridView7.RowTemplate.Height = 24;
             this.dataGridView7.Size = new System.Drawing.Size(1155, 495);
             this.dataGridView7.TabIndex = 70;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(3, 3);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(51, 16);
-            this.label22.TabIndex = 39;
-            this.label22.Text = "v1.0.0.6";
             // 
             // StartForm
             // 
