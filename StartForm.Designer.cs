@@ -1157,7 +1157,7 @@ namespace ChongBuonLauFW
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(51, 16);
             this.label22.TabIndex = 39;
-            this.label22.Text = "v1.0.0.4";
+            this.label22.Text = "v1.0.0.6";
             // 
             // StartForm
             // 
