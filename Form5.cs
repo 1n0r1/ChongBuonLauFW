@@ -22,10 +22,10 @@ namespace ChongBuonLauFW
 
         private void UpdateList()
         {
-            var collection = MongoUserCollection.GetDSRRCollection(1);
+            var collection = DatabaseMongoCollection.GetDSRRCollection(1);
             var deleteResult = collection.DeleteMany(Builders<BsonDocument>.Filter.Empty);
 
-            var userCollection = MongoUserCollection.GetMongoUserCollection();
+            var userCollection = DatabaseMongoCollection.GetMongoUserCollection();
 
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
@@ -65,8 +65,8 @@ namespace ChongBuonLauFW
             dataGridView2.Columns.Add("Ghi chú", "Ghi chú");
 
 
-            var collectionRR = MongoUserCollection.GetDSRRCollection(1);
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collectionRR = DatabaseMongoCollection.GetDSRRCollection(1);
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var documents = collectionRR.Find(Builders<BsonDocument>.Filter.Empty).ToList();
             foreach (var document in documents)
             {

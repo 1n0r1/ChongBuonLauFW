@@ -14,13 +14,13 @@ using System.Windows.Forms;
 
 namespace ChongBuonLauFW
 {
-    public partial class Form1 : Form
+    public partial class AddDataForm : Form
     {
         string[] filenames;
         private BackgroundWorker backgroundWorker1 = new BackgroundWorker();
 
 
-        public Form1()
+        public AddDataForm()
         {
             InitializeComponent();
             backgroundWorker1.WorkerReportsProgress = true;
@@ -99,7 +99,7 @@ namespace ChongBuonLauFW
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var bulkOps = new List<WriteModel<Person>>();
 
             for (int fileIndex = 0; fileIndex < filenames.Count(); fileIndex++)

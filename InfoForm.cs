@@ -13,15 +13,15 @@ using System.Windows.Forms;
 
 namespace ChongBuonLauFW
 {
-    public partial class Form2 : Form
+    public partial class InfoForm : Form
     {
         private string id;
-        public Form2(string id_input)
+        public InfoForm(string id_input)
         {
             id = id_input;
             InitializeComponent();
 
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var filter = Builders<Person>.Filter.Eq("IdNum", id);
             var result = collection.Find(filter).ToList();
 
@@ -89,7 +89,7 @@ namespace ChongBuonLauFW
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var filter = Builders<Person>.Filter.Eq("IdNum", id);
             var update = Builders<Person>.Update
                 .Set("Note", textBox1.Text);

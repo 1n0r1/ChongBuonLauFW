@@ -2,6 +2,7 @@
 using ClosedXML.Excel;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -115,12 +116,12 @@ namespace ChongBuonLauFW
                     string previousChuyenBay = "";
                     int startRow = 8;
                     int endRow = 8;
-
+                    
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
-                        if (row.Cells["Chuyến bay"].Value == null) break;
+                        if (row.Cells["Chuyến bay"].Value == null) continue;
 
-                        if ((row.Cells["Số khách"].Value?.ToString() ?? "") != "1") continue;
+                        // if ((row.Cells["Số khách"].Value?.ToString() ?? "") != "1") continue;
 
                         string currentChuyenBay = row.Cells["Chuyến bay"].Value?.ToString() ?? "";
 
@@ -157,6 +158,7 @@ namespace ChongBuonLauFW
                         worksheet.Cell(index + 8, 11).Value = row.Cells["Hành lý"].Value?.ToString() ?? "";
 
                         index++;
+                        Console.WriteLine($"{index}");
                     }
 
                     DateTime currentDate = DateTime.UtcNow;
@@ -252,7 +254,7 @@ namespace ChongBuonLauFW
                         var colorCell = dataGridView.Columns.Contains("Color") ? row.Cells["Color"].Value : null;
                         if (colorCell != null && colorCell.ToString() == "yellow") isYellow = true;
 
-                        if (row.Cells["Chuyến bay"].Value == null) break;
+                        if (row.Cells["Chuyến bay"].Value == null) continue;
 
                         string currentChuyenBay = row.Cells["Chuyến bay"].Value?.ToString() ?? "";
 
@@ -332,67 +334,47 @@ namespace ChongBuonLauFW
                     tableRange.Style.Border.InsideBorderColor = XLColor.Black;
 
                     workbook.SaveAs(saveFileDialog.FileName);
-                    dataGridView.Sort(dataGridView.Columns["Số lần nhiều nhất"], ListSortDirection.Descending);
+                    try
+                    {
+                        dataGridView.Sort(dataGridView.Columns["Số lần nhiều nhất"], ListSortDirection.Descending);
+                    }
+                    catch
+                    {
+                    }
                 }
             }
         }
     }
 
-    class SharedData
+    public static class DatabaseMongoCollection
     {
-        private static SharedData instance;
-        public Dictionary<string, Dictionary<string, int>> Dictionary { get; set; }
-        public DataTable MainData { get; set; }
-
-
-        private SharedData()
+        private static IMongoDatabase GetDatabase()
         {
-
+            MongoClient client = new MongoClient("mongodb+srv://test:nzhrwUuhk37OXhZz@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
+            return client.GetDatabase("database");
         }
-
-        public static SharedData Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new SharedData();
-                }
-                return instance;
-            }
-        }
-    }
-
-    public static class MongoUserCollection
-    {
         public static IMongoCollection<Person> GetMongoUserCollection()
         {
-            var client = new MongoClient("mongodb+srv://test:nzhrwUuhk37OXhZz@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
-            var collection = client.GetDatabase("database").GetCollection<Person>("User");
+            IMongoCollection<Person> collection = GetDatabase().GetCollection<Person>("User");
             return collection;
 
         }
 
         public static IMongoCollection<BsonDocument> GetDSRRCollection(int type)
         {
-            var client = new MongoClient("mongodb+srv://test:nzhrwUuhk37OXhZz@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
-            var collection = client.GetDatabase("database").GetCollection<BsonDocument>("DSRR");
+            IMongoCollection<BsonDocument> collection = GetDatabase().GetCollection<BsonDocument>("DSRR");
             if (type == 1)
             {
-                collection = client.GetDatabase("database").GetCollection<BsonDocument>("DSRROp");
+                collection = GetDatabase().GetCollection<BsonDocument>("DSRROp");
             }
             return collection;
 
         }
         public static IMongoCollection<AirportData> GetAirportsCollection()
         {
-            var client = new MongoClient("mongodb+srv://test:nzhrwUuhk37OXhZz@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
-            var collection = client.GetDatabase("database").GetCollection<AirportData>("Airports");
+            IMongoCollection<AirportData> collection = GetDatabase().GetCollection<AirportData>("Airports");
             return collection;
 
         }
     }
-
-
-
 }

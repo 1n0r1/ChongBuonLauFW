@@ -24,7 +24,7 @@ namespace ChongBuonLauFW
         string filename = "";
         private void button1_Click(object sender, EventArgs e)
         {
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             openFileDialog1.ShowDialog();
             filename = openFileDialog1.FileName;
             if (filename == "") return;
@@ -90,7 +90,7 @@ namespace ChongBuonLauFW
                 System.Windows.Forms.MessageBox.Show("Vui lòng chọn file");
                 return;
             }
-            var collection = MongoUserCollection.GetDSRRCollection(0);
+            var collection = DatabaseMongoCollection.GetDSRRCollection(0);
             var deleteResult = collection.DeleteMany(Builders<BsonDocument>.Filter.Empty);
 
             foreach (DataGridViewRow row in dataGridView1.Rows)
@@ -117,8 +117,8 @@ namespace ChongBuonLauFW
             dataGridView2.Columns.Add("Họ Tên", "Họ Tên");
             dataGridView2.Columns.Add("Số chuyến trong hệ thống", "Số chuyến trong hệ thống");
 
-            var collectionRR = MongoUserCollection.GetDSRRCollection(0);
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collectionRR = DatabaseMongoCollection.GetDSRRCollection(0);
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var documents = collectionRR.Find(Builders<BsonDocument>.Filter.Empty).ToList();
             foreach (var document in documents)
             {

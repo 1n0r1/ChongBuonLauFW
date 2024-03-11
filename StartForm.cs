@@ -1,9 +1,11 @@
 ﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.VisualBasic.FileIO;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,18 +29,20 @@ namespace ChongBuonLauFW
         private BackgroundWorker backgroundWorker3 = new BackgroundWorker();
         private BackgroundWorker backgroundWorker4 = new BackgroundWorker();
         private BackgroundWorker backgroundWorker5 = new BackgroundWorker();
+        private BackgroundWorker backgroundWorkerShortTerm = new BackgroundWorker();
 
         private List<AirportData> airports;
         public StartForm()
         {
             InitializeComponent();
 
-            dataGridView1.CellDoubleClick += DataGridView1_CellDoubleClick;
-            dataGridView2.CellDoubleClick += DataGridView2_CellDoubleClick;
-            dataGridView3.CellDoubleClick += DataGridView3_CellDoubleClick;
-            dataGridView4.CellDoubleClick += DataGridView4_CellDoubleClick;
-            dataGridView5.CellDoubleClick += DataGridView5_CellDoubleClick;
-            dataGridView6.CellDoubleClick += DataGridView6_CellDoubleClick;
+            dataGridView1.CellDoubleClick += ShowInfoForm;
+            dataGridView2.CellDoubleClick += ShowInfoForm;
+            dataGridView3.CellDoubleClick += ShowInfoForm;
+            dataGridView4.CellDoubleClick += ShowInfoForm;
+            dataGridView5.CellDoubleClick += ShowInfoForm;
+            dataGridView6.CellDoubleClick += ShowInfoForm;
+            dataGridView7.CellDoubleClick += ShowInfoForm;
 
             dataGridView2.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(dataGridView2_RowPrePaint);
             dataGridView6.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(dataGridView6_RowPrePaint);
@@ -63,7 +67,11 @@ namespace ChongBuonLauFW
             backgroundWorker5.DoWork += BackgroundWorker5_DoWork;
             backgroundWorker5.RunWorkerCompleted += BackgroundWorker5_RunWorkerCompleted;
 
-            var collection = MongoUserCollection.GetAirportsCollection();
+            backgroundWorkerShortTerm.WorkerReportsProgress = true;
+            backgroundWorkerShortTerm.DoWork += backgroundWorkerShortTerm_DoWork;
+            backgroundWorkerShortTerm.RunWorkerCompleted += backgroundWorkerShortTerm_RunWorkerCompleted;
+
+            var collection = DatabaseMongoCollection.GetAirportsCollection();
             var filter = Builders<AirportData>.Filter.Empty;
             airports = collection.Find(filter).ToList();
             List<string> uniqueCountries = airports
@@ -75,79 +83,27 @@ namespace ChongBuonLauFW
             comboBox1.Items.AddRange(uniqueCountries.ToArray());
             comboBox2.Items.AddRange(uniqueCountries.ToArray());
         }
-
-
-        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void ShowInfoForm(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridView1.Rows.Count)
+            DataGridView dataGridView = sender as DataGridView;
+
+            if (dataGridView != null && e.RowIndex >= 0 && e.RowIndex < dataGridView.Rows.Count)
             {
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                DataGridViewRow row = dataGridView.Rows[e.RowIndex];
                 string id = row.Cells["Số giấy tờ"].Value?.ToString();
-                Form2 form = new Form2(id);
+                InfoForm form = new InfoForm(id);
                 form.Show();
             }
+
         }
 
-        private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridView2.Rows.Count)
-            {
-                DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
-                string id = row.Cells["Số giấy tờ"].Value?.ToString();
-                Form2 form = new Form2(id);
-                form.Show();
-            }
-        }
-
-        private void DataGridView3_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridView3.Rows.Count)
-            {
-                DataGridViewRow row = dataGridView3.Rows[e.RowIndex];
-                string id = row.Cells["Số giấy tờ"].Value?.ToString();
-                Form2 form = new Form2(id);
-                form.Show();
-            }
-        }
-
-        private void DataGridView4_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridView4.Rows.Count)
-            {
-                DataGridViewRow row = dataGridView4.Rows[e.RowIndex];
-                string id = row.Cells["Số giấy tờ"].Value?.ToString();
-                Form2 form = new Form2(id);
-                form.Show();
-            }
-        }
-
-        private void DataGridView5_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridView5.Rows.Count)
-            {
-                DataGridViewRow row = dataGridView5.Rows[e.RowIndex];
-                string id = row.Cells["Số giấy tờ"].Value?.ToString();
-                Form2 form = new Form2(id);
-                form.Show();
-            }
-        }
-
-        private void DataGridView6_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridView6.Rows.Count)
-            {
-                DataGridViewRow row = dataGridView6.Rows[e.RowIndex];
-                string id = row.Cells["Số giấy tờ"].Value?.ToString();
-                Form2 form = new Form2(id);
-                form.Show();
-            }
-        }
         private void FindFlight()
         {
             button4.Enabled = false;
 
             decimal threshold = numericUpDown2.Value;
             bool checkFlight = false;
+            bool filterSingle = checkBox3.Checked;
             string flightNo = textBox3.Text;
 
             if (flightNo != "") checkFlight = true;
@@ -370,7 +326,15 @@ namespace ChongBuonLauFW
                         {"FlightNumber", "$FlightList.FlightNumber"},
                         {"Destination", "$FlightList.Destination"},
                         {"Origin", "$FlightList.Origin"},
-                        {"Luggage", "$FlightList.Luggage"},
+                        {
+                            "Luggage",
+                            new BsonDocument("$cond", new BsonArray
+                            {
+                                new BsonDocument("$eq", new BsonArray {"$FlightList.Luggage", ""}),
+                                "$FlightList.Seat",
+                                "$FlightList.Luggage"
+                            })
+                        },
                         {"LuggageCount", "$LuggageCount"}
                     }
                 },
@@ -390,7 +354,7 @@ namespace ChongBuonLauFW
             });
 
 
-            var pipeline = new[]
+            var tempPipeline = new List<BsonDocument>
             {
                 filterStage,
                 filterStageCountry,
@@ -404,6 +368,13 @@ namespace ChongBuonLauFW
                 groupStage,
                 new BsonDocument("$sort", new BsonDocument { { "_id.LuggageCount", -1 }, { "_id.Luggage", 1 }  })
             };
+
+            if (filterSingle)
+            {
+                tempPipeline.Add(new BsonDocument("$match", new BsonDocument { { "Count", 1 } }));
+            }
+
+            var pipeline = tempPipeline.ToArray();
 
             if (!backgroundWorker2.IsBusy)
             {
@@ -426,7 +397,7 @@ namespace ChongBuonLauFW
             DateTime from = DateTime.MinValue;
             DateTime to = DateTime.MaxValue;
 
-            var collectionRR = MongoUserCollection.GetDSRRCollection(findFlightKHRRType);
+            var collectionRR = DatabaseMongoCollection.GetDSRRCollection(findFlightKHRRType);
             var DSRR = collectionRR.Find(Builders<BsonDocument>.Filter.Empty).ToList();
             var filterIdNum = new List<string>();
             foreach (var document in DSRR)
@@ -1428,6 +1399,108 @@ namespace ChongBuonLauFW
             }
         }
 
+        private void FindFlightShortTerm()
+        {
+            button23.Enabled = false;
+            Double days_threshold = (double)numericUpDown5.Value;
+            decimal count_threshold = numericUpDown6.Value;
+            DateTime rawDay = dateTimePicker9.Value;
+            DateTime today = new DateTime(rawDay.Year, rawDay.Month, rawDay.Day, 0, 0, 0, DateTimeKind.Utc).AddHours(-7);
+
+            var filterStage = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "FlightList", new BsonDocument
+                    {
+                        {
+                            "$elemMatch", new BsonDocument
+                            {
+                                {
+                                    "Date", new BsonDocument
+                                    {
+                                        { "$gte", today },
+                                        { "$lt", today.AddDays(1) }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            var flightCountStage = new BsonDocument("$addFields", new BsonDocument
+            {
+                {
+                    "FlightCount", new BsonDocument
+                    {
+                        {
+                            "$size", new BsonDocument
+                            {
+                                { "$filter", new BsonDocument
+                                    {
+                                        { "input", "$FlightList" },
+                                        { "as", "flight" },
+                                        { "cond", new BsonDocument
+                                            {
+                                                { "$and", new BsonArray
+                                                    {
+                                                        new BsonDocument("$gte", new BsonArray { "$$flight.Date", today.AddDays(-days_threshold) }),
+                                                        new BsonDocument("$lt", new BsonArray { "$$flight.Date", today.AddDays(1) })
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            var filterCountStage = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "FlightCount", new BsonDocument
+                    {
+                        { "$gte", count_threshold }
+                    }
+                }
+            });
+            var addFlightDetailsStage = new BsonDocument("$addFields",
+                new BsonDocument("FlightDetails",
+                    new BsonDocument("$filter",
+                        new BsonDocument
+                        {
+                            { "input", "$FlightList" },
+                            { "as", "flight" },
+                            { "cond",
+                                new BsonDocument("$and",
+                                    new BsonArray
+                                    {
+                                        new BsonDocument("$lt", new BsonArray { "$$flight.Date", today.AddDays(1)}),
+                                        new BsonDocument("$gte", new BsonArray { "$$flight.Date", today})
+                                    }
+                                )
+                            }
+                        }
+                    )
+                )
+            );
+
+
+            var pipeline = new[]
+            {
+                filterStage,
+                flightCountStage,
+                filterCountStage,
+                addFlightDetailsStage
+            };
+
+            if (!backgroundWorkerShortTerm.IsBusy)
+            {
+                backgroundWorkerShortTerm.RunWorkerAsync(pipeline);
+            }
+        }
+
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -1440,7 +1513,7 @@ namespace ChongBuonLauFW
                 return;
             }
 
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
 
             // Create a new DataTable to store the results
@@ -1514,7 +1587,7 @@ namespace ChongBuonLauFW
                 return;
             }
 
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
 
             // Create a new DataTable to store the results
@@ -1629,7 +1702,7 @@ namespace ChongBuonLauFW
                 return;
             }
 
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
 
             // Create a new DataTable to store the results
@@ -1722,7 +1795,7 @@ namespace ChongBuonLauFW
                 return;
             }
 
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
 
             // Create a new DataTable to store the results
@@ -1837,7 +1910,7 @@ namespace ChongBuonLauFW
                 return;
             }
 
-            var collection = MongoUserCollection.GetMongoUserCollection();
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
 
             // Create a new DataTable to store the results
@@ -1941,17 +2014,94 @@ namespace ChongBuonLauFW
         }
 
 
+        private void backgroundWorkerShortTerm_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var worker = sender as BackgroundWorker;
+            var pipeline = e.Argument as BsonDocument[];
+
+            if (worker == null || pipeline == null)
+            {
+                return;
+            }
+
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
+            var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
+
+            // Create a new DataTable to store the results
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("Ngày bay");
+            dataTable.Columns.Add("Chuyến bay");
+            dataTable.Columns.Add("Số ghế");
+            dataTable.Columns.Add("Họ tên");
+            dataTable.Columns.Add("Giới tính");
+            dataTable.Columns.Add("Quốc tịch");
+            dataTable.Columns.Add("Ngày sinh");
+            dataTable.Columns.Add("Loại giấy tờ");
+            dataTable.Columns.Add("Số giấy tờ");
+            dataTable.Columns.Add("Nơi cấp");
+            dataTable.Columns.Add("Nơi đi");
+            dataTable.Columns.Add("Nơi đến");
+            dataTable.Columns.Add("Hành lý");
+
+
+            foreach (var doc in result)
+            {
+                TimeZoneInfo vstZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+                DateTime flightdate = TimeZoneInfo.ConvertTimeFromUtc(doc["FlightDetails"][0]["Date"].ToUniversalTime(), vstZone);
+
+                var row = dataTable.NewRow();
+
+                row["Số giấy tờ"] = doc.GetValue("IdNum", string.Empty);
+                row["Họ tên"] = doc.GetValue("Name", string.Empty);
+                row["Giới tính"] = doc.GetValue("Sex", string.Empty);
+                row["Quốc tịch"] = doc.GetValue("Nationality", string.Empty);
+                row["Ngày sinh"] = doc.GetValue("DOB", string.Empty);
+                row["Loại giấy tờ"] = doc.GetValue("IdType", string.Empty);
+                row["Nơi cấp"] = doc.GetValue("IdProv", string.Empty);
+                row["Ngày bay"] = flightdate.ToString("dd/MM/yyyy");
+                row["Chuyến bay"] = doc["FlightDetails"][0]["FlightNumber"];
+                row["Số ghế"] = doc["FlightDetails"][0]["Seat"];
+                row["Nơi đi"] = doc["FlightDetails"][0]["Origin"];
+                row["Nơi đến"] = doc["FlightDetails"][0]["Destination"];
+                row["Hành lý"] = doc["FlightDetails"][0]["Luggage"];
+
+                dataTable.Rows.Add(row);
+            }
+
+            e.Result = dataTable;
+        }
+        private void backgroundWorkerShortTerm_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            button23.Enabled = true;
+            if (e.Error != null)
+            {
+                MessageBox.Show($"Error: {e.Error.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!e.Cancelled)
+            {
+                var dataTable = e.Result as DataTable;
+                dataGridView7.DataSource = dataTable;
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    if (i < dataGridView7.Rows.Count)
+                    {
+                        dataGridView7.Rows[i].HeaderCell.Value = "" + (i + 1);
+                    }
+                }
+            }
+        }
+
         private void dataGridView2_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
 
             if (row.Cells["Color"].Value != null && row.Cells["Color"].Value.ToString().Contains("white"))
             {
-                row.DefaultCellStyle.BackColor = Color.White;
+                row.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             }
             else
             {
-                row.DefaultCellStyle.BackColor = Color.LightGray;
+                row.DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
             }
         }
 
@@ -1961,18 +2111,18 @@ namespace ChongBuonLauFW
 
             if (row.Cells["Color"].Value != null && row.Cells["Color"].Value.ToString().Contains("yellow"))
             {
-                row.DefaultCellStyle.BackColor = Color.Yellow;
+                row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
             }
             else
             {
-                row.DefaultCellStyle.BackColor = Color.White;
+                row.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             }
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form1 form = new Form1();
+            AddDataForm form = new AddDataForm();
             form.Show();
         }
 
@@ -2082,6 +2232,22 @@ namespace ChongBuonLauFW
         private void button18_Click(object sender, EventArgs e)
         {
             ExcelExporter.ExportFormHK(dataGridView6);
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            FindFlightShortTerm();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportToExcel(dataGridView7);
+
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportFormHK(dataGridView7);
         }
     }
     public class Person

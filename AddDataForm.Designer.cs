@@ -1,7 +1,7 @@
 ﻿
 namespace ChongBuonLauFW
 {
-    partial class Form1
+    partial class AddDataForm
     {
         /// <summary>
         /// Required designer variable.
@@ -60,13 +60,14 @@ namespace ChongBuonLauFW
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(699, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 17);
+            this.label1.Size = new System.Drawing.Size(49, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Folder:";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1108, 9);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(1133, 9);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(105, 39);
@@ -105,11 +106,11 @@ namespace ChongBuonLauFW
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(488, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 17);
+            this.label2.Size = new System.Drawing.Size(87, 16);
             this.label2.TabIndex = 22;
             this.label2.Text = "Thêm dữ liệu:";
             // 
-            // Form1
+            // AddDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +122,7 @@ namespace ChongBuonLauFW
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Form1";
+            this.Name = "AddDataForm";
             this.Text = "ChongBuonLau";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
