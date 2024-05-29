@@ -116,6 +116,8 @@ namespace ChongBuonLauFW
             dataGridView2.Columns.Add("Số giấy tờ", "Số giấy tờ");
             dataGridView2.Columns.Add("Họ Tên", "Họ Tên");
             dataGridView2.Columns.Add("Số chuyến trong hệ thống", "Số chuyến trong hệ thống");
+            dataGridView2.Columns.Add("Ghi chú", "Ghi chú");
+
 
             var collectionRR = DatabaseMongoCollection.GetDSRRCollection(0);
             var collection = DatabaseMongoCollection.GetMongoUserCollection();
@@ -123,9 +125,10 @@ namespace ChongBuonLauFW
             foreach (var document in documents)
             {
                 string id = document["IdNum"].AsString;
+
                 string name = "-";
                 int countFlight = 0;
-
+                string note = "";
                 var filter = Builders<Person>.Filter.Eq("IdNum", id);
                 var person = collection.Find(filter).FirstOrDefault();
 
@@ -133,6 +136,7 @@ namespace ChongBuonLauFW
                 {
                     name = person.Name;
                     countFlight = person.FlightList.Count;
+                    note = person.Note;
                 }
 
                 DataGridViewRow dataGridViewRow = new DataGridViewRow();

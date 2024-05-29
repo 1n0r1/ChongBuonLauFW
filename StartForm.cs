@@ -2201,7 +2201,7 @@ namespace ChongBuonLauFW
 
         private void button13_Click(object sender, EventArgs e)
         {
-            Form4 form = new Form4();
+            Form5 form = new Form5(0);
             form.Show();
         }
 
@@ -2223,7 +2223,7 @@ namespace ChongBuonLauFW
 
         private void button14_Click(object sender, EventArgs e)
         {
-            Form5 form = new Form5();
+            Form5 form = new Form5(1);
             form.Show();
 
         }

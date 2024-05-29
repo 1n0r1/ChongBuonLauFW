@@ -374,7 +374,7 @@ namespace ChongBuonLauFW
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(51, 16);
             this.label22.TabIndex = 39;
-            this.label22.Text = "v1.0.0.8";
+            this.label22.Text = "v1.0.0.9";
             // 
             // tabPage2
             // 
@@ -744,7 +744,7 @@ namespace ChongBuonLauFW
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(1228, 613);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "KH rủi ro";
+            this.tabPage4.Text = "QLRR TCHQ";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // button13

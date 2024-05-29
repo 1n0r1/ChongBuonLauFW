@@ -14,15 +14,17 @@ namespace ChongBuonLauFW
 {
     public partial class Form5 : Form
     {
-        public Form5()
+        private int collection_type = 0;
+        public Form5(int coll_type)
         {
+            collection_type = coll_type;
             InitializeComponent();
             ShowCurrentList();
         }
 
         private void UpdateList()
         {
-            var collection = DatabaseMongoCollection.GetDSRRCollection(1);
+            var collection = DatabaseMongoCollection.GetDSRRCollection(collection_type);
             var deleteResult = collection.DeleteMany(Builders<BsonDocument>.Filter.Empty);
 
             var userCollection = DatabaseMongoCollection.GetMongoUserCollection();
@@ -65,7 +67,7 @@ namespace ChongBuonLauFW
             dataGridView2.Columns.Add("Ghi chú", "Ghi chú");
 
 
-            var collectionRR = DatabaseMongoCollection.GetDSRRCollection(1);
+            var collectionRR = DatabaseMongoCollection.GetDSRRCollection(collection_type);
             var collection = DatabaseMongoCollection.GetMongoUserCollection();
             var documents = collectionRR.Find(Builders<BsonDocument>.Filter.Empty).ToList();
             foreach (var document in documents)
