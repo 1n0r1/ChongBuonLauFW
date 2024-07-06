@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Authentication;
 using System;
 using System.Windows.Forms;
 
@@ -15,15 +16,48 @@ namespace ChongBuonLauFW
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartForm());
+
+            LoginForm loginForm = new LoginForm();
+            DialogResult result = loginForm.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                Application.Run(new StartForm());
+            }
+            else
+            {
+                MessageBox.Show("Login failed. Exiting application.");
+            }
         }
 
     }
     public static class DatabaseMongoCollection
     {
+        private static MongoClient client = null;
+        public static void Login(string username, string password)
+        {
+            client = new MongoClient($"mongodb+srv://{username}:{password}@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
+            try
+            {
+                var databaseNames = client.ListDatabaseNames().ToList();
+            }
+            catch (MongoAuthenticationException ex)
+            {
+                Console.WriteLine($"Authentication failed: {ex.Message}");
+                MessageBox.Show("Không đúng tài khoản hoặc mật khẩu");
+                throw new ApplicationException("Authentication failed");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+                MessageBox.Show("Không kết nối được. Có thể vì địa chỉ IP không được cho phép.");
+                throw new ApplicationException("Connection failed");
+            }
+        }
+
         private static IMongoDatabase GetDatabase()
         {
-            MongoClient client = new MongoClient("mongodb+srv://test:nzhrwUuhk37OXhZz@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
+            // MongoClient client = new MongoClient("mongodb+srv://test:nzhrwUuhk37OXhZz@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
             return client.GetDatabase("database");
         }
         public static IMongoCollection<Person> GetMongoUserCollection()

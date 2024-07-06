@@ -267,6 +267,12 @@
       <DependentUpon>AddDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExcelExporter.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models.cs" />
     <Compile Include="InfoForm.cs">
       <SubType>Form</SubType>
@@ -302,6 +308,9 @@
     </Compile>
     <EmbeddedResource Include="AddDataForm.resx">
       <DependentUpon>AddDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>

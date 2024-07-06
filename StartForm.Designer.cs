@@ -372,9 +372,9 @@ namespace ChongBuonLauFW
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(3, 3);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(51, 16);
+            this.label22.Size = new System.Drawing.Size(58, 16);
             this.label22.TabIndex = 39;
-            this.label22.Text = "v1.0.0.9";
+            this.label22.Text = "v1.0.0.10";
             // 
             // tabPage2
             // 
