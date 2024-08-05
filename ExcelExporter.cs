@@ -177,7 +177,7 @@ namespace ChongBuonLauFW
                 }
             }
         }
-        public static void ExportFormHK(DataGridView dataGridView)
+        public static void ExportFormHK(DataGridView dataGridView, bool merge)
         {
             // Create a SaveFileDialog to specify the file path
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -237,7 +237,7 @@ namespace ChongBuonLauFW
                         string currentChuyenBay = row.Cells["Chuyến bay"].Value?.ToString() ?? "";
 
                         Console.WriteLine($"ChuyenBay {previousChuyenBay} {currentChuyenBay}");
-                        if (currentChuyenBay != previousChuyenBay)
+                        if (merge && currentChuyenBay != previousChuyenBay)
                         {
                             Console.WriteLine($"Row {startRow}-{endRow}");
                             if (startRow != endRow)

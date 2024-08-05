@@ -30,6 +30,7 @@ namespace ChongBuonLauFW
         private BackgroundWorker backgroundWorker4 = new BackgroundWorker();
         private BackgroundWorker backgroundWorker5 = new BackgroundWorker();
         private BackgroundWorker backgroundWorkerShortTerm = new BackgroundWorker();
+        private BackgroundWorker backgroundWorkerCotravel = new BackgroundWorker();
 
         private List<AirportData> airports;
         public StartForm()
@@ -43,6 +44,7 @@ namespace ChongBuonLauFW
             dataGridView5.CellDoubleClick += ShowInfoForm;
             dataGridView6.CellDoubleClick += ShowInfoForm;
             dataGridView7.CellDoubleClick += ShowInfoForm;
+            dataGridView8.CellDoubleClick += ShowInfoForm;
 
             dataGridView2.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(dataGridView2_RowPrePaint);
             dataGridView6.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(dataGridView6_RowPrePaint);
@@ -70,6 +72,10 @@ namespace ChongBuonLauFW
             backgroundWorkerShortTerm.WorkerReportsProgress = true;
             backgroundWorkerShortTerm.DoWork += backgroundWorkerShortTerm_DoWork;
             backgroundWorkerShortTerm.RunWorkerCompleted += backgroundWorkerShortTerm_RunWorkerCompleted;
+
+            backgroundWorkerCotravel.WorkerReportsProgress = true;
+            backgroundWorkerCotravel.DoWork += backgroundWorkerCotravel_DoWork;
+            backgroundWorkerCotravel.RunWorkerCompleted += backgroundWorkerCotravel_RunWorkerCompleted;
 
             var collection = DatabaseMongoCollection.GetAirportsCollection();
             var filter = Builders<AirportData>.Filter.Empty;
@@ -858,6 +864,128 @@ namespace ChongBuonLauFW
                 backgroundWorker3.RunWorkerAsync(pipeline);
             }
         }
+
+
+
+        private void FindCotravel()
+        {
+            button24.Enabled = false;
+            var idnum = textBox5.Text + ";";
+
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
+            var found = collection.Find(Builders<Person>.Filter.Eq(g => g.IdNum, idnum)).ToList();
+
+            var filterSeat = new List<string>();
+            var filterFlight = new List<string>();
+            var filterDate = new List<DateTime>();
+            foreach (var document in found)
+            {
+                foreach (var flight in document.FlightList)
+                {
+                    filterSeat.Add(flight.Seat);
+                    filterFlight.Add(flight.FlightNumber);
+                    filterDate.Add(flight.Date);
+                }
+            }
+
+
+            var filterStage1 = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "FlightList.Seat", new BsonDocument
+                    {
+                        {
+                            "$in", new BsonArray(filterSeat)
+                        }
+                    }
+                }
+            });
+            var filterStage2 = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "IdNum", new BsonDocument
+                    {
+                        {
+                            "$ne", idnum
+                        }
+                    }
+                }
+            });
+            var getMatchedFlight = new BsonDocument("$addFields", new BsonDocument
+            {
+                {
+                    "Flight", new BsonDocument
+                    {
+                        {
+                            "$arrayElemAt", new BsonArray
+                            {
+                                new BsonDocument
+                                {
+                                    {
+                                        "$filter", new BsonDocument
+                                        {
+                                            { "input", "$FlightList" },
+                                            { "as", "flight" },
+                                            {
+                                                "cond", new BsonDocument
+                                                {
+                                                    {
+                                                        "$in", new BsonArray
+                                                        {
+                                                            "$$flight.Seat",
+                                                            new BsonArray(filterSeat)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                -1
+                            }
+                        }
+                    }
+                }
+            });
+
+            var filterStage3 = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "Flight.FlightNumber", new BsonDocument
+                    {
+                        {
+                            "$in", new BsonArray(filterFlight)
+                        }
+                    }
+                }
+            });
+            var filterStage4 = new BsonDocument("$match", new BsonDocument
+            {
+                {
+                    "Flight.Date", new BsonDocument
+                    {
+                        {
+                            "$in", new BsonArray(filterDate)
+                        }
+                    }
+                }
+            });
+
+            var pipeline = new[] {
+                filterStage1,
+                // filterStage2,
+                getMatchedFlight,
+                filterStage3,
+                filterStage4
+            };
+
+
+            if (!backgroundWorkerCotravel.IsBusy)
+            {
+                backgroundWorkerCotravel.RunWorkerAsync(pipeline);
+            }
+        }
+
 
         private void FindAndDisplay()
         {
@@ -1695,7 +1823,7 @@ namespace ChongBuonLauFW
 
                 var totalLuggage = customResult.Item2;
                 label12.Text = "Tổng số hành lý: " + totalLuggage;
-                label13.Text = "Trung bình hành lý mỗi khách: " + (float) totalLuggage/ dataTable.Rows.Count;
+                label13.Text = "Trung bình hành lý mỗi khách: " + (float)totalLuggage / dataTable.Rows.Count;
                 label14.Text = "Số khách: " + dataTable.Rows.Count;
 
             }
@@ -2100,6 +2228,100 @@ namespace ChongBuonLauFW
             }
         }
 
+
+
+
+        private void backgroundWorkerCotravel_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var worker = sender as BackgroundWorker;
+            var pipeline = e.Argument as BsonDocument[];
+
+            Console.WriteLine(pipeline.ToJson());
+            if (worker == null || pipeline == null)
+            {
+                // Handle null or invalid arguments
+                return;
+            }
+
+            var collection = DatabaseMongoCollection.GetMongoUserCollection();
+            var result = collection.Aggregate<BsonDocument>(pipeline).ToList();
+            foreach (var document in result)
+            {
+                Console.WriteLine(document.ToJson());
+            }
+            // Create a new DataTable to store the results
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("Số giấy tờ");
+            dataTable.Columns.Add("Họ tên");
+            dataTable.Columns.Add("Giới tính");
+            dataTable.Columns.Add("Quốc tịch");
+            dataTable.Columns.Add("Ngày sinh");
+            dataTable.Columns.Add("Loại giấy tờ");
+            dataTable.Columns.Add("Nơi cấp");
+            dataTable.Columns.Add("Ngày bay");
+            dataTable.Columns.Add("Chuyến bay");
+            dataTable.Columns.Add("Số ghế");
+            dataTable.Columns.Add("Nơi đi");
+            dataTable.Columns.Add("Nơi đến");
+            dataTable.Columns.Add("Hành lý");
+
+            TimeZoneInfo vstZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            foreach (var doc in result)
+            {
+                var row = dataTable.NewRow();
+                row["Số giấy tờ"] = doc.GetValue("IdNum", string.Empty);
+                row["Họ tên"] = doc.GetValue("Name", string.Empty);
+                row["Giới tính"] = doc.GetValue("Sex", string.Empty);
+                row["Quốc tịch"] = doc.GetValue("Nationality", string.Empty);
+                row["Ngày sinh"] = doc.GetValue("DOB", string.Empty);
+                row["Loại giấy tờ"] = doc.GetValue("IdType", string.Empty);
+                row["Nơi cấp"] = doc.GetValue("IdProv", string.Empty);
+                var flight = doc.GetValue("Flight", new BsonDocument()).AsBsonDocument;
+                DateTime flightdate = TimeZoneInfo.ConvertTimeFromUtc(flight["Date"].ToUniversalTime(), vstZone);
+                row["Ngày bay"] = flightdate.ToString("dd/MM/yyyy");
+                row["Chuyến bay"] = flight.GetValue("FlightNumber", string.Empty);
+                row["Số ghế"] = flight.GetValue("Seat", string.Empty);
+                row["Nơi đi"] = flight.GetValue("Origin", string.Empty);
+                row["Nơi đến"] = flight.GetValue("Destination", string.Empty);
+                row["Hành lý"] = flight.GetValue("Luggage", string.Empty);
+               
+
+                dataTable.Rows.Add(row);
+            }
+
+            e.Result = dataTable;
+        }
+        private void backgroundWorkerCotravel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            button24.Enabled = true;
+            if (e.Error != null)
+            {
+                MessageBox.Show($"Error: {e.Error.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!e.Cancelled)
+            {
+                var dataTable = e.Result as DataTable;
+                dataGridView8.DataSource = dataTable;
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    if (i < dataGridView8.Rows.Count)
+                    {
+                        dataGridView8.Rows[i].HeaderCell.Value = "" + (i + 1);
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
         private void dataGridView2_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
@@ -2174,7 +2396,7 @@ namespace ChongBuonLauFW
 
         private void button6_Click(object sender, EventArgs e)
         {
-            ExcelExporter.ExportFormHK(dataGridView3);
+            ExcelExporter.ExportFormHK(dataGridView3, true);
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -2196,7 +2418,7 @@ namespace ChongBuonLauFW
 
         private void button10_Click(object sender, EventArgs e)
         {
-            ExcelExporter.ExportFormHK(dataGridView4);
+            ExcelExporter.ExportFormHK(dataGridView4, true);
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -2212,7 +2434,7 @@ namespace ChongBuonLauFW
 
         private void button15_Click(object sender, EventArgs e)
         {
-            ExcelExporter.ExportFormHK(dataGridView5);
+            ExcelExporter.ExportFormHK(dataGridView5, true);
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -2240,7 +2462,7 @@ namespace ChongBuonLauFW
 
         private void button18_Click(object sender, EventArgs e)
         {
-            ExcelExporter.ExportFormHK(dataGridView6);
+            ExcelExporter.ExportFormHK(dataGridView6, true);
         }
 
         private void button23_Click(object sender, EventArgs e)
@@ -2256,7 +2478,25 @@ namespace ChongBuonLauFW
 
         private void button21_Click(object sender, EventArgs e)
         {
-            ExcelExporter.ExportFormHK(dataGridView7);
+            ExcelExporter.ExportFormHK(dataGridView7, true);
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            FindCotravel();
+
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportToExcel(dataGridView8);
+
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportFormHK(dataGridView8, false);
+
         }
     }
 
