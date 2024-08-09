@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -36,7 +37,15 @@ namespace ChongBuonLauFW
         public StartForm()
         {
             InitializeComponent();
-
+            label22.Text = "1.0.0.15";
+            try
+            {
+                label22.Text = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+            }
+            catch
+            {
+                
+            }
             dataGridView1.CellDoubleClick += ShowInfoForm;
             dataGridView2.CellDoubleClick += ShowInfoForm;
             dataGridView3.CellDoubleClick += ShowInfoForm;
@@ -914,35 +923,50 @@ namespace ChongBuonLauFW
             var getMatchedFlight = new BsonDocument("$addFields", new BsonDocument
             {
                 {
+                    "MatchedFlights", new BsonDocument
+                    {
+                        {
+                            "$filter", new BsonDocument
+                            {
+                                { "input", "$FlightList" },
+                                { "as", "flight" },
+                                {
+                                    "cond", new BsonDocument
+                                    {
+                                        {
+                                            "$in", new BsonArray
+                                            {
+                                                "$$flight.Seat",
+                                                new BsonArray(filterSeat)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            var countMatchedFlight = new BsonDocument("$addFields", new BsonDocument
+            {
+                {
                     "Flight", new BsonDocument
                     {
                         {
                             "$arrayElemAt", new BsonArray
                             {
-                                new BsonDocument
-                                {
-                                    {
-                                        "$filter", new BsonDocument
-                                        {
-                                            { "input", "$FlightList" },
-                                            { "as", "flight" },
-                                            {
-                                                "cond", new BsonDocument
-                                                {
-                                                    {
-                                                        "$in", new BsonArray
-                                                        {
-                                                            "$$flight.Seat",
-                                                            new BsonArray(filterSeat)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
+                                "$MatchedFlights",
                                 -1
                             }
+                        }
+                    }
+                },
+                {
+                    "Count", new BsonDocument
+                    {
+                        {
+                            "$size", "$MatchedFlights"
                         }
                     }
                 }
@@ -975,8 +999,10 @@ namespace ChongBuonLauFW
                 filterStage1,
                 // filterStage2,
                 getMatchedFlight,
+                countMatchedFlight,
                 filterStage3,
-                filterStage4
+                filterStage4,
+                new BsonDocument("$sort", new BsonDocument { { "Count", -1 }})
             };
 
 
@@ -2258,6 +2284,7 @@ namespace ChongBuonLauFW
             dataTable.Columns.Add("Ngày sinh");
             dataTable.Columns.Add("Loại giấy tờ");
             dataTable.Columns.Add("Nơi cấp");
+            dataTable.Columns.Add("Số lần đi chung");
             dataTable.Columns.Add("Ngày bay");
             dataTable.Columns.Add("Chuyến bay");
             dataTable.Columns.Add("Số ghế");
@@ -2276,6 +2303,7 @@ namespace ChongBuonLauFW
                 row["Ngày sinh"] = doc.GetValue("DOB", string.Empty);
                 row["Loại giấy tờ"] = doc.GetValue("IdType", string.Empty);
                 row["Nơi cấp"] = doc.GetValue("IdProv", string.Empty);
+                row["Số lần đi chung"] = doc.GetValue("Count", string.Empty);
                 var flight = doc.GetValue("Flight", new BsonDocument()).AsBsonDocument;
                 DateTime flightdate = TimeZoneInfo.ConvertTimeFromUtc(flight["Date"].ToUniversalTime(), vstZone);
                 row["Ngày bay"] = flightdate.ToString("dd/MM/yyyy");
