@@ -36,7 +36,7 @@ namespace ChongBuonLauFW
         private static MongoClient client = null;
         public static void Login(string username, string password)
         {
-            client = new MongoClient($"mongodb+srv://{username}:{password}@cluster1.pcviqfw.mongodb.net/?retryWrites=true&w=majority");
+            client = new MongoClient($"mongodb+srv://{username}:{password}@cluster0.76k4h.mongodb.net/?retryWrites=true&w=majority");
             try
             {
                 var databaseNames = client.ListDatabaseNames().ToList();
